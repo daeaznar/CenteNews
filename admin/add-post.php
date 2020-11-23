@@ -31,9 +31,9 @@ if (strlen($_SESSION['login']) == 0) {
             $status = 1;
             $query = mysqli_query($con, "insert into tblposts(PostTitle,CategoryId,SubCategoryId,PostDetails,PostUrl,Is_Active,PostImage) values('$posttitle','$catid','$subcatid','$postdetails','$url','$status','$imgnewfile')");
             if ($query) {
-                $msg = "Post successfully added ";
+                $msg = "Nota agregada ";
             } else {
-                $error = "Something went wrong . Please try again.";
+                $error = "Algo salió mal, intenta de nuevo más tarde";
             }
         }
     }
