@@ -7,20 +7,8 @@ if (strlen($_SESSION['login']) == 0) {
 } else {
     if ($_GET['action'] == 'del' && $_GET['scid']) {
         $id = intval($_GET['scid']);
-        $query = mysqli_query($con, "update  tblsubcategory set Is_Active='0' where SubCategoryId='$id'");
-        $msg = "Subcategoría Eliminada ";
-    }
-
-    if ($_GET['resid']) {
-        $id = intval($_GET['resid']);
-        $query = mysqli_query($con, "update  tblsubcategory set Is_Active='1' where SubCategoryId='$id'");
-        $msg = "Subcategoría Restaurada";
-    }
-
-    if ($_GET['action'] == 'perdel' && $_GET['scid']) {
-        $id = intval($_GET['scid']);
         $query = mysqli_query($con, "delete from   tblsubcategory  where SubCategoryId='$id'");
-        $delmsg = "subcategoría Eliminada";
+        $msg = "Subcategoría Eliminada ";
     }
 
 ?>
@@ -123,7 +111,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <td><?php echo htmlentities($row['SubCatDescription']); ?></td>
                                                             <td><?php echo htmlentities($row['subcatpostingdate']); ?></td>
                                                             <td><a href="edit-subcategory.php?scid=<?php echo htmlentities($row['subcatid']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a>
-                                                                &nbsp;<a href="manage-subcategories.php?scid=<?php echo htmlentities($row['subcatid']); ?>&&action=del"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
+                                                                &nbsp;<a href="manage-subcategories.php?scid=<?php echo htmlentities($row['subcatid']); ?>&&action=del" onclick="return confirm('¿Seguro que desea eliminar la subcategoría?')"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
                                                         </tr>
                                                 <?php
                                                                 $cnt++;

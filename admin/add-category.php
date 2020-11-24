@@ -13,9 +13,9 @@ if (strlen($_SESSION['login']) == 0) {
         $query = mysqli_query($con, "insert into tblcategory(CategoryName,Description,Is_Active) values('$category','$description','$status')");
 
         if ($query) {
-            $msg = "Category created ";
+            $msg = "Categoría Creada ";
         } else {
-            $error = "Something went wrong . Please try again.";
+            $error = "Error inesperado, intenta de nuevo";
         }
     }
 ?>
@@ -52,7 +52,7 @@ if (strlen($_SESSION['login']) == 0) {
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="page-title-box">
-                                    <h4 class="page-title">Añadir Catgoría</h4>
+                                    <h4 class="page-title">Añadir Categoría</h4>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
@@ -65,17 +65,17 @@ if (strlen($_SESSION['login']) == 0) {
                                     <hr />
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <!---Success Message--->
+                                            <!---Agregado--->
                                             <?php if ($msg) { ?>
                                                 <div class="alert alert-success" role="alert">
-                                                    <strong>Well done!</strong> <?php echo htmlentities($msg); ?>
+                                                    <strong>¡Éxito!</strong> <?php echo htmlentities($msg); ?>
                                                 </div>
                                             <?php } ?>
 
-                                            <!---Error Message--->
+                                            <!---Error--->
                                             <?php if ($error) { ?>
                                                 <div class="alert alert-danger" role="alert">
-                                                    <strong>Oh snap!</strong> <?php echo htmlentities($error); ?></div>
+                                                    <strong>¡Algo salió mal, intenta de nuevo más tarde!</strong> <?php echo htmlentities($error); ?></div>
                                             <?php } ?>
 
 

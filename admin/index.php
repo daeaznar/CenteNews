@@ -8,11 +8,12 @@ if (isset($_POST['login'])) {
   $password = $_POST['password'];
   $sql = mysqli_query($con, "SELECT AdminUserName,AdminEmailId,AdminPassword FROM tbladmin WHERE (AdminUserName='$uname' || AdminEmailId='$uname')");
   $num = mysqli_fetch_array($sql);
-  $sqlquery = ("SELECT AdminPassword FROM tbladmin WHERE (AdminUserName='$uname' || AdminEmailId='$uname')");
-  $pass = mysqli_query($con, $sqlquery);
   if ($num > 0) {
+    $sqlquery = ("SELECT AdminPassword FROM tbladmin WHERE (AdminUserName='$uname' || AdminEmailId='$uname')");
+    $result = mysqli_query($con, $sqlquery);
+    $pass=mysqli_fetch_assoc($result);
     $checkpass = md5($password);
-    if ($checkpass = $pass) {
+    if ($checkpass == $pass["AdminPassword"]) {
       $_SESSION['login'] = $_POST['username'];
       echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
     } else {
@@ -62,11 +63,11 @@ if (isset($_POST['login'])) {
 
 <body class="text-center">
   <form class="form-signin" method="POST">
-    <img class="mb-4" src="../img/CLogo.png" alt="" width="150" height="150">
+    <img class="mb-4" src="../images/CLogo.png" alt="" width="150" height="150">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
     <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="text" id="inputEmail" class="form-control" name="username" placeholder="Email address" required autofocus>
+    <input type="text" id="inputEmail" class="form-control" name="username" placeholder="Username or email" required autofocus>
 
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>

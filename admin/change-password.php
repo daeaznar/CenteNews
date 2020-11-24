@@ -6,29 +6,40 @@ if (strlen($_SESSION['login']) == 0) {
     header('location:index.php');
 } else {
     if (isset($_POST['submit'])) {
-        //Current Password hashing 
+        //obtener datos
         $password = $_POST['password'];
-        $options = ['cost' => 12];
-        $hashedpass = password_hash($password, PASSWORD_BCRYPT, $options);
-        $adminid = $_SESSION['login'];
-        // new password hashing 
+        $userid = $_SESSION['login'];
+        // Nueva contraseña
         $newpassword = $_POST['newpassword'];
-        $newhashedpass = password_hash($newpassword, PASSWORD_BCRYPT, $options);
+        $confirmpass = $_POST['confirmpassword'];
 
-        date_default_timezone_set('Asia/Kolkata'); // change according timezone
-        $currentTime = date('d-m-Y h:i:s A', time());
-        $sql = mysqli_query($con, "SELECT AdminPassword FROM  tbladmin where AdminUserName='$adminid' || AdminEmailId='$adminid'");
+        $sql = mysqli_query($con, "SELECT AdminPassword FROM  tbladmin where AdminUserName='$userid' || AdminEmailId='$userid'");
         $num = mysqli_fetch_array($sql);
         if ($num > 0) {
-            $dbpassword = $num['AdminPassword'];
+            
+            $checkpass = md5($password);
+            $sqlquery = ("SELECT AdminPassword FROM tbladmin WHERE (AdminUserName='$userid' || AdminEmailId='$userid')");
+            $result = mysqli_query($con, $sqlquery);
+            $pass = mysqli_fetch_assoc($result);
 
-            if (password_verify($password, $dbpassword)) {
-
-                $con = mysqli_query($con, "update tbladmin set AdminPassword='$newhashedpass', updationDate='$currentTime' where AdminUserName='$adminid'");
-                $msg = "Password Changed Successfully !!";
+            if ($checkpass == $pass["AdminPassword"]) {
+                if ($newpassword == $confirmpass) {
+                    $new_encryptedpass = md5($newpassword);
+                    $update = "UPDATE tbladmin SET AdminPassword='$new_encryptedpass', updationDate= CURRENT_TIMESTAMP where AdminUserName='$userid'";
+                    if (mysqli_query($con, $update)) {
+                        $msg = "¡Contraseña Modificada!";
+                    } else {
+                        $error = "Algo salió mal, intenta de nuevo más tarde";
+                    }
+                    
+                } else {
+                    $error = "La nueva contraseña no coincide";
+                }
+            }else {
+                $error = "Contraseña actual incorrecta";
             }
         } else {
-            $error = "Old Password not match !!";
+            $error = "No hay usuario";
         }
     }
 ?>
@@ -38,10 +49,10 @@ if (strlen($_SESSION['login']) == 0) {
 
     <head>
 
-        <title>CenteNews | Modifcar Contraseña</title>
+        <title>CenteNews | Modificar Contraseña</title>
         <link rel="shortcut icon" href="../images/favicon.ico">
 
-        <!-- App css -->
+        <!-- CSS -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
@@ -54,7 +65,7 @@ if (strlen($_SESSION['login']) == 0) {
         <script type="text/javascript">
             function valid() {
                 if (document.chngpwd.password.value == "") {
-                    alert("Por favor ingrsa una contraseña nueva");
+                    alert("Por favor ingresa una contraseña nueva");
                     document.chngpwd.password.focus();
                     return false;
                 } else if (document.chngpwd.newpassword.value == "") {
@@ -108,7 +119,7 @@ if (strlen($_SESSION['login']) == 0) {
                                             <!---Error Message--->
                                             <?php if ($error) { ?>
                                                 <div class="alert alert-danger" role="alert">
-                                                    <strong>¡Algo salió mal, intenta de nuevo más tarde!</strong> <?php echo htmlentities($error); ?></div>
+                                                    <strong>¡Error!</strong> <?php echo htmlentities($error); ?></div>
                                             <?php } ?>
 
 
@@ -122,7 +133,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                 <div class="form-group">
                                                     <label class="col-md-4 control-label">Contraseña Actual</label>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" value="" name="password" required>
+                                                        <input type="password" class="form-control" value="" name="password" required>
                                                     </div>
                                                 </div>
 
@@ -130,7 +141,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                 <div class="form-group">
                                                     <label class="col-md-4 control-label">Nueva Contraseña</label>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" value="" name="newpassword" required>
+                                                        <input type="password" class="form-control" value="" name="newpassword" required>
                                                     </div>
                                                 </div>
 
@@ -138,7 +149,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                 <div class="form-group">
                                                     <label class="col-md-4 control-label">Confirma tu nueva Contraseña</label>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" value="" name="confirmpassword" required>
+                                                        <input type="password" class="form-control" value="" name="confirmpassword" required>
                                                     </div>
                                                 </div>
 

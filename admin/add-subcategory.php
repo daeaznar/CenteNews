@@ -12,9 +12,9 @@ if (strlen($_SESSION['login']) == 0) {
         $status = 1;
         $query = mysqli_query($con, "insert into tblsubcategory(CategoryId,Subcategory,SubCatDescription,Is_Active) values('$categoryid','$subcatname','$subcatdescription','$status')");
         if ($query) {
-            $msg = "Sub-Category created ";
+            $msg = "Subcategoría Creada ";
         } else {
-            $error = "Something went wrong . Please try again.";
+            $error = "Error inesperado, intenta de nuevo";
         }
     }
 ?>

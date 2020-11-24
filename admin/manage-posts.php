@@ -8,7 +8,7 @@ if (strlen($_SESSION['login']) == 0) {
 
     if ($_GET['action'] = 'del') {
         $postid = intval($_GET['pid']);
-        $query = mysqli_query($con, "update tblposts set Is_Active=0 where id='$postid'");
+        $query = mysqli_query($con, "DELETE from tblposts where id='$postid'");
         if ($query) {
             $msg = "Nota Eliminada ";
         } else {
@@ -100,7 +100,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                         <td><?php echo htmlentities($row['subcategory']) ?></td>
 
                                                         <td><a href="edit-post.php?pid=<?php echo htmlentities($row['postid']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a>
-                                                            &nbsp;<a href="manage-posts.php?pid=<?php echo htmlentities($row['postid']); ?>&&action=del" onclick="return confirm('Do you reaaly want to delete ?')"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
+                                                            &nbsp;<a href="manage-posts.php?pid=<?php echo htmlentities($row['postid']); ?>&&action=del" onclick="return confirm('¿Seguro que desea eliminar la nota?')"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
                                                     </tr>
                                             <?php }
                                                     } ?>

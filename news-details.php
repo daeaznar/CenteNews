@@ -35,8 +35,14 @@ include('includes/config.php');
 
             <div class="card-body">
               <h2 class="card-title"><?php echo htmlentities($row['posttitle']); ?></h2>
-              <p><b>Category : </b> <a href="category.php?catid=<?php echo htmlentities($row['cid']) ?>"><?php echo htmlentities($row['category']); ?></a> |
-                <b>Sub Category : </b><?php echo htmlentities($row['subcategory']); ?> <b> Posted on: </b><?php echo htmlentities($row['postingdate']); ?></p>
+              <p><b>Categoría : </b> <a href="category.php?catid=<?php echo htmlentities($row['cid']) ?>"><?php echo htmlentities($row['category']); ?></a> |
+                <b>Subcategoría : </b><?php echo htmlentities($row['subcategory']); ?> 
+                <?php 
+                $sql = "SELECT postingdate, AdminUserName FROM tblposts INNER JOIN tbladmin ON tblposts.creator_id = tbladmin.id";
+                $result = mysqli_query($con, $sql);
+                $show = mysqli_fetch_assoc($result);
+                echo "<br><b>Publicado en: </b>" . $show['postingdate'] . " | ". "<b>Por: </b>" . $show['AdminUserName']; 
+                ?>
               <hr />
 
               <img class="img-fluid rounded" src="admin/postimages/<?php echo htmlentities($row['PostImage']); ?>" alt="<?php echo htmlentities($row['posttitle']); ?>">

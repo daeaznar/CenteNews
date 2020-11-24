@@ -21,7 +21,7 @@ CREATE TABLE tbladmin (
 );
 
 INSERT INTO tbladmin VALUES
-(NULL, 'daeaznar', '$2y$12$i4LMfeFPQpGSNPTaccIkKuwxAkJ4PhBr3JND7FpXwWFjRvchQn17C', 'dae.aznar@centenews.com', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(NULL, 'daeaznar', '482c811da5d5b4bc6d497ffa98491e38', 'dae.aznar@centenews.com', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- --------------------------------------------------------
 

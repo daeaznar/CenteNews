@@ -38,7 +38,7 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi fa-user"></i> <span>Usuarios </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="add-user.php">Agregar Usuarios</a></li>
-                                    <li><a href="manage-users.php">Editar y Eliminar Usuarios</a></li>
+                                    <li><a href="manage-users.php">Ver y Eliminar Usuarios</a></li>
                                 </ul>
                             </li>
 

@@ -68,7 +68,12 @@ include('includes/config.php');
                 <a href="news-details.php?nid=<?php echo htmlentities($row['pid']) ?>" class="btn btn-primary">Sigue Leyendo &rarr;</a>
               </div>
               <div class="card-footer text-muted">
-                Posted on <?php echo htmlentities($row['postingdate']); ?>
+                <?php 
+                $sql = "SELECT postingdate, AdminUserName FROM tblposts INNER JOIN tbladmin ON tblposts.creator_id = tbladmin.id";
+                $result = mysqli_query($con, $sql);
+                $row = mysqli_fetch_assoc($result);
+                echo "Publicado en: " . $row["postingdate"] . " | ". "Por: " . $row["AdminUserName"]; 
+                ?>
               </div>
             </div>
           <?php } ?>

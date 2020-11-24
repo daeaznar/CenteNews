@@ -7,21 +7,8 @@ if (strlen($_SESSION['login']) == 0) {
 } else {
     if ($_GET['action'] == 'del' && $_GET['rid']) {
         $id = intval($_GET['rid']);
-        $query = mysqli_query($con, "update tblcategory set Is_Active='0' where id='$id'");
-        $msg = "Categoría Eliminada ";
-    }
-    // Code for restore
-    if ($_GET['resid']) {
-        $id = intval($_GET['resid']);
-        $query = mysqli_query($con, "update tblcategory set Is_Active='1' where id='$id'");
-        $msg = "Category restaurada";
-    }
-
-    // Code for Forever deletionparmdel
-    if ($_GET['action'] == 'parmdel' && $_GET['rid']) {
-        $id = intval($_GET['rid']);
         $query = mysqli_query($con, "delete from  tblcategory  where id='$id'");
-        $delmsg = "Categoría eliminada";
+        $msg = "Categoría Eliminada ";
     }
 
 ?>
@@ -104,7 +91,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $query = mysqli_query($con, "Select id,CategoryName,Description,PostingDate,UpdationDate from  tblcategory where Is_Active=1");
+                                                    $query = mysqli_query($con, "SELECT id,CategoryName,Description,PostingDate,UpdationDate from  tblcategory where Is_Active=1");
                                                     $cnt = 1;
                                                     while ($row = mysqli_fetch_array($query)) {
                                                     ?>
@@ -115,7 +102,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <td><?php echo htmlentities($row['Description']); ?></td>
                                                             <td><?php echo htmlentities($row['PostingDate']); ?></td>   
                                                             <td><a href="edit-category.php?cid=<?php echo htmlentities($row['id']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a>
-                                                                &nbsp;<a href="manage-categories.php?rid=<?php echo htmlentities($row['id']); ?>&&action=del"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
+                                                                &nbsp;<a href="manage-categories.php?rid=<?php echo htmlentities($row['id']); ?>&&action=del" onclick="return confirm('¿Seguro que desea eliminar la categoría?')"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
                                                         </tr>
                                                     <?php
                                                         $cnt++;
