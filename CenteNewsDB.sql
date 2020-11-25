@@ -1,5 +1,4 @@
 
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -21,7 +20,7 @@ CREATE TABLE tbladmin (
 );
 
 INSERT INTO tbladmin VALUES
-(NULL, 'daeaznar', '482c811da5d5b4bc6d497ffa98491e38', 'dae.aznar@centenews.com', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(NULL, 'dae.aznar', '482c811da5d5b4bc6d497ffa98491e38', 'dae.aznar@centenews.com', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- --------------------------------------------------------
 
@@ -39,7 +38,7 @@ CREATE TABLE tblcategory (
 INSERT INTO tblcategory VALUES
 (NULL, 'Mexico', 'Sucesos importantes en el país', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
 (NULL, 'Internacional', 'Noticas alrededor del mundo', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
-(NULL, 'Economía', 'Lo más relevante sobre economía', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
+(NULL, 'Economia', 'Lo más relevante sobre economía', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
 (NULL, 'Deportes', 'Noticias sobre lo más importante del deporte', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1),
 (NULL, 'Entretenimiento', 'El mundo del espectáculo', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1);
 
@@ -85,9 +84,10 @@ CREATE TABLE tblposts (
   Is_Active bit DEFAULT NULL,
   PostUrl mediumtext,
   PostImage varchar(255) DEFAULT NULL,
-  PRIMARY KEY (id)
+  creator_id INT,
+  PRIMARY KEY (id),
+  FOREIGN KEY (creator_id) REFERENCES tbladmin(id)
 );
 
 -- --------------------------------------------------------
-
 

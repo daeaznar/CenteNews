@@ -74,6 +74,8 @@ if (strlen($_SESSION['login']) == 0) {
                                                     <th>Título</th>
                                                     <th>Categoría</th>
                                                     <th>Subcategoría</th>
+                                                    <th>Fecha Publicación</th>
+                                                    <th>Autor</th>
                                                     <th>Acción</th>
                                                 </tr>
                                             </thead>
@@ -94,10 +96,19 @@ if (strlen($_SESSION['login']) == 0) {
                                                     } else {
                                                         while ($row = mysqli_fetch_array($query)) {
                                                         ?>
+                                                        <?php $post_id = $row['postid'];?>
                                                     <tr>
                                                         <td><b><?php echo htmlentities($row['title']); ?></b></td>
                                                         <td><?php echo htmlentities($row['category']) ?></td>
                                                         <td><?php echo htmlentities($row['subcategory']) ?></td>
+                                                        <?php
+                                                            $sql = "SELECT PostingDate, AdminUserName FROM tblposts INNER JOIN tbladmin ON tblposts.creator_id = tbladmin.id WHERE tblposts.id = '$post_id'";
+                                                            $result = mysqli_query($con, $sql);
+                                                            $author = mysqli_fetch_assoc($result);
+                                                        ?>
+                                                        <td><?php echo htmlentities($author['PostingDate']) ?></td>
+                                                        <td><?php echo htmlentities($author['AdminUserName']) ?></td>
+
 
                                                         <td><a href="edit-post.php?pid=<?php echo htmlentities($row['postid']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a>
                                                             &nbsp;<a href="manage-posts.php?pid=<?php echo htmlentities($row['postid']); ?>&&action=del" onclick="return confirm('¿Seguro que desea eliminar la nota?')"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>

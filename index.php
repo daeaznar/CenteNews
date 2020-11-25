@@ -65,14 +65,14 @@ include('includes/config.php');
                 <h2 class="card-title"><?php echo htmlentities($row['posttitle']); ?></h2>
                 <p><b>Categoría : </b> <a href="category.php?catid=<?php echo htmlentities($row['cid']) ?>"><?php echo htmlentities($row['category']); ?></a> </p>
 
-                <a href="news-details.php?nid=<?php echo htmlentities($row['pid']) ?>" class="btn btn-primary">Sigue Leyendo &rarr;</a>
+                <a href="news-details.php?nid=<?php $post_id = $row['pid']; echo htmlentities($row['pid']) ?>" class="btn btn-primary">Sigue Leyendo &rarr;</a>
               </div>
               <div class="card-footer text-muted">
                 <?php 
-                $sql = "SELECT postingdate, AdminUserName FROM tblposts INNER JOIN tbladmin ON tblposts.creator_id = tbladmin.id";
+                $sql = "SELECT PostingDate, AdminUserName FROM tblposts INNER JOIN tbladmin ON tblposts.creator_id = tbladmin.id WHERE tblposts.id = '$post_id'";
                 $result = mysqli_query($con, $sql);
-                $row = mysqli_fetch_assoc($result);
-                echo "Publicado en: " . $row["postingdate"] . " | ". "Por: " . $row["AdminUserName"]; 
+                $info = mysqli_fetch_assoc($result);
+                echo "Publicado en: " . $info["PostingDate"] . " | ". "Por: " . $info["AdminUserName"]; 
                 ?>
               </div>
             </div>

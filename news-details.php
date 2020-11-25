@@ -27,7 +27,7 @@ include('includes/config.php');
       <div class="col-md-8">
         <?php
         $pid = intval($_GET['nid']);
-        $query = mysqli_query($con, "select tblposts.PostTitle as posttitle,tblposts.PostImage,tblcategory.CategoryName as category,tblcategory.id as cid,tblsubcategory.Subcategory as subcategory,tblposts.PostDetails as postdetails,tblposts.PostingDate as postingdate,tblposts.PostUrl as url from tblposts left join tblcategory on tblcategory.id=tblposts.CategoryId left join  tblsubcategory on  tblsubcategory.SubCategoryId=tblposts.SubCategoryId where tblposts.id='$pid'");
+        $query = mysqli_query($con, "select tblposts.id as pid, tblposts.PostTitle as posttitle,tblposts.PostImage,tblcategory.CategoryName as category,tblcategory.id as cid,tblsubcategory.Subcategory as subcategory,tblposts.PostDetails as postdetails,tblposts.PostingDate as postingdate,tblposts.PostUrl as url from tblposts left join tblcategory on tblcategory.id=tblposts.CategoryId left join  tblsubcategory on  tblsubcategory.SubCategoryId=tblposts.SubCategoryId where tblposts.id='$pid'");
         while ($row = mysqli_fetch_array($query)) {
         ?>
 
@@ -37,8 +37,9 @@ include('includes/config.php');
               <h2 class="card-title"><?php echo htmlentities($row['posttitle']); ?></h2>
               <p><b>Categoría : </b> <a href="category.php?catid=<?php echo htmlentities($row['cid']) ?>"><?php echo htmlentities($row['category']); ?></a> |
                 <b>Subcategoría : </b><?php echo htmlentities($row['subcategory']); ?> 
+                <?php $post_id = $row['pid'];?>
                 <?php 
-                $sql = "SELECT postingdate, AdminUserName FROM tblposts INNER JOIN tbladmin ON tblposts.creator_id = tbladmin.id";
+                $sql = "SELECT postingdate, AdminUserName FROM tblposts INNER JOIN tbladmin ON tblposts.creator_id = tbladmin.id WHERE tblposts.id = '$post_id'";
                 $result = mysqli_query($con, $sql);
                 $show = mysqli_fetch_assoc($result);
                 echo "<br><b>Publicado en: </b>" . $show['postingdate'] . " | ". "<b>Por: </b>" . $show['AdminUserName']; 

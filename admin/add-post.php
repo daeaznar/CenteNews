@@ -8,6 +8,12 @@ if (strlen($_SESSION['login']) == 0) {
 
     // Añadir nota
     if (isset($_POST['submit'])) {
+        $user = $_SESSION['login'];
+        $sqlquery = ("SELECT id FROM tbladmin WHERE (AdminUserName='$user' || AdminEmailId='$user')");
+        $result = mysqli_query($con, $sqlquery);
+        $userid_query = mysqli_fetch_assoc($result);
+        $userid = $userid_query['id'];
+
         $posttitle = $_POST['posttitle'];
         $catid = $_POST['category'];
         $subcatid = $_POST['subcategory'];
@@ -29,7 +35,7 @@ if (strlen($_SESSION['login']) == 0) {
             move_uploaded_file($_FILES["postimage"]["tmp_name"], "postimages/" . $imgnewfile);
 
             $status = 1;
-            $query = mysqli_query($con, "insert into tblposts(PostTitle,CategoryId,SubCategoryId,PostDetails,PostUrl,Is_Active,PostImage) values('$posttitle','$catid','$subcatid','$postdetails','$url','$status','$imgnewfile')");
+            $query = mysqli_query($con, "insert into tblposts(PostTitle,CategoryId,SubCategoryId,PostDetails,PostUrl,Is_Active,PostImage,creator_id) values('$posttitle','$catid','$subcatid','$postdetails','$url','$status','$imgnewfile','$userid')");
             if ($query) {
                 $msg = "Nota agregada ";
             } else {
