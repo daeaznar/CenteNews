@@ -58,19 +58,48 @@ include('includes/config.php');
 
 
         ?>
-            <h1><?php echo htmlentities($row['category']); ?> News</h1>
+            <h1><?php echo htmlentities($row['category']); ?> Notas</h1>
             <div class="card mb-4">
               <img class="card-img-top" src="admin/postimages/<?php echo htmlentities($row['PostImage']); ?>" alt="<?php echo htmlentities($row['posttitle']); ?>">
               <div class="card-body">
                 <h2 class="card-title"><?php echo htmlentities($row['posttitle']); ?></h2>
 
-                <a href="news-details.php?nid=<?php echo htmlentities($row['pid']) ?>" class="btn btn-primary">Read More &rarr;</a>
+                <a href="news-details.php?nid=<?php echo htmlentities($row['pid']) ?>" class="btn btn-primary">Ver Más &rarr;</a>
               </div>
               <div class="card-footer text-muted">
-                Posted on <?php echo htmlentities($row['postingdate']); ?>
+                <?php
+                $sql = "SELECT postingdate, AdminUserName FROM tblposts INNER JOIN tbladmin ON tblposts.creator_id = tbladmin.id";
+                $result = mysqli_query($con, $sql);
+                $info = mysqli_fetch_assoc($result);
+                echo "Publicado en: " . $info["postingdate"] . " | " . "Por: " . $info["AdminUserName"];
+                ?>
               </div>
             </div>
           <?php } ?>
+
+          <ul class="pagination justify-content-center mb-4">
+            <li class="page-item"><a href="?pageno=1" class="page-link">Primera</a></li>
+            <li class="<?php if ($pageno <= 1) {
+                          echo 'disabled';
+                        } ?> page-item">
+              <a href="<?php if ($pageno <= 1) {
+                          echo '#';
+                        } else {
+                          echo "?pageno=" . ($pageno - 1);
+                        } ?>" class="page-link">Anterior</a>
+            </li>
+            <li class="<?php if ($pageno >= $total_pages) {
+                          echo 'disabled';
+                        } ?> page-item">
+              <a href="<?php if ($pageno >= $total_pages) {
+                          echo '#';
+                        } else {
+                          echo "?pageno=" . ($pageno + 1);
+                        } ?> " class="page-link">Siguiente</a>
+            </li>
+            <li class="page-item"><a href="?pageno=<?php echo $total_pages; ?>" class="page-link">Última</a></li>
+          </ul>
+
         <?php } ?>
 
       </div>
