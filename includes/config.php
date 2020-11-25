@@ -1,9 +1,10 @@
 <?php
-define('DB_SERVER','localhost');
-define('DB_USER','root');
-define('DB_PASS' ,'');
-define('DB_NAME','centenews');
-$con = mysqli_connect(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
+$host_name = "localhost";
+$host_user = "root";
+$host_pass = "";
+$database = "centenews";
+
+$con = mysqli_connect($host_name, $host_user, $host_pass, $database);
 // Check connection
 if (mysqli_connect_errno())
 {
