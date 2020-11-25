@@ -34,8 +34,8 @@ if (strlen($_SESSION['login']) == 0) {
             // subir imagen a la ruta
             move_uploaded_file($_FILES["postimage"]["tmp_name"], "postimages/" . $imgnewfile);
 
-            $status = 1;
-            $query = mysqli_query($con, "insert into tblposts(PostTitle,CategoryId,SubCategoryId,PostDetails,PostUrl,Is_Active,PostImage,creator_id) values('$posttitle','$catid','$subcatid','$postdetails','$url','$status','$imgnewfile','$userid')");
+            //status = 1;
+            $query = mysqli_query($con, "insert into tblposts(PostTitle,CategoryId,SubCategoryId,PostDetails,PostUrl,Is_Active,PostImage,creator_id) values('$posttitle','$catid','$subcatid','$postdetails','$url',1,'$imgnewfile','$userid')");
             if ($query) {
                 $msg = "Nota agregada ";
             } else {

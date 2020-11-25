@@ -9,8 +9,8 @@ if (strlen($_SESSION['login']) == 0) {
         $categoryid = $_POST['category'];
         $subcatname = $_POST['subcategory'];
         $subcatdescription = $_POST['sucatdescription'];
-        $status = 1;
-        $query = mysqli_query($con, "insert into tblsubcategory(CategoryId,Subcategory,SubCatDescription,Is_Active) values('$categoryid','$subcatname','$subcatdescription','$status')");
+        //status = 1;
+        $query = mysqli_query($con, "insert into tblsubcategory(CategoryId,Subcategory,SubCatDescription,Is_Active) values('$categoryid','$subcatname','$subcatdescription',1)");
         if ($query) {
             $msg = "Subcategoría Creada ";
         } else {

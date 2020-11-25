@@ -15,9 +15,9 @@ if (strlen($_SESSION['login']) == 0) {
         $user_exists= mysqli_fetch_assoc($sql);
         if ($username != $user_exists["AdminUserName"]) {
             if ($user_pass == $confirmpass) {
-                $status = 1;
+                //status = 1;
                 $encrypted_pass = md5($user_pass);
-                $query = "INSERT into tbladmin values(NULL,'$username','$encrypted_pass','$user_email', $status, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+                $query = "INSERT into tbladmin values(NULL,'$username','$encrypted_pass','$user_email', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
                 if (mysqli_query($con, $query)) {
                     $msg = "Usuario creado ";
                     echo "Nombre de usuario: " . $username . "<br>";

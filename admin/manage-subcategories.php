@@ -62,7 +62,7 @@ if (strlen($_SESSION['login']) == 0) {
 
                                 <?php if ($delmsg) { ?>
                                     <div class="alert alert-danger" role="alert">
-                                        <strong>¡Algo salió mal, intenta de nuevo más tarde!</strong> <?php echo htmlentities($delmsg); ?></div>
+                                        <strong>¡Error!</strong> <?php echo htmlentities($delmsg); ?></div>
                                 <?php } ?>
                             </div>
 
@@ -80,9 +80,9 @@ if (strlen($_SESSION['login']) == 0) {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th> Categoría</th>
                                                         <th>Subcategoría</th>
                                                         <th>Descripción</th>
+                                                        <th> Categoría</th>
                                                         <th>Fecha de Creación</th>
                                                         <th>Acción</th>
                                                     </tr>
@@ -106,9 +106,9 @@ if (strlen($_SESSION['login']) == 0) {
                                                             ?>
                                                         <tr>
                                                             <th scope="row"><?php echo htmlentities($cnt); ?></th>
-                                                            <td><?php echo htmlentities($row['catname']); ?></td>
                                                             <td><?php echo htmlentities($row['subcatname']); ?></td>
                                                             <td><?php echo htmlentities($row['SubCatDescription']); ?></td>
+                                                            <td><?php echo htmlentities($row['catname']); ?></td>
                                                             <td><?php echo htmlentities($row['subcatpostingdate']); ?></td>
                                                             <td><a href="edit-subcategory.php?scid=<?php echo htmlentities($row['subcatid']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a>
                                                                 &nbsp;<a href="manage-subcategories.php?scid=<?php echo htmlentities($row['subcatid']); ?>&&action=del" onclick="return confirm('¿Seguro que desea eliminar la subcategoría?')"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
